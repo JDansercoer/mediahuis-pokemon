@@ -1,9 +1,11 @@
 import React from 'react';
 import Generations from './Generations';
+import Pokemon from './Pokemon';
 
 class Selector extends React.Component {
   state = {
     selectedGeneration: '',
+    selectedPokemon: '',
   };
 
   setGeneration = generation => {
@@ -12,13 +14,30 @@ class Selector extends React.Component {
     });
   };
 
+  unsetGeneration = () => {
+    this.setState({
+      selectedGeneration: '',
+    });
+  };
+
+  setPokemon = pokemon => {
+    this.setState({
+      selectedPokemon: pokemon,
+    });
+  };
+
   render() {
-    const { selectedGeneration } = this.state;
+    const { selectedGeneration, selectedPokemon } = this.state;
 
     return (
       <>
-        Generation: {selectedGeneration}
-        <Generations setGeneration={this.setGeneration} />
+        Generation: {selectedGeneration}<br />
+        Pokemon: {selectedPokemon}<br />
+        <button onClick={this.unsetGeneration}>Reset</button>
+        {!selectedGeneration && <Generations setGeneration={this.setGeneration} />}
+        {selectedGeneration && (
+          <Pokemon generation={selectedGeneration} setPokemon={this.setPokemon} />
+        )}
       </>
     );
   }
