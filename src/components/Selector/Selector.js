@@ -1,5 +1,6 @@
 import React from 'react';
 import Pokemon from './Pokemon';
+import Detail from '../Detail';
 
 class Selector extends React.Component {
   state = {
@@ -18,6 +19,8 @@ class Selector extends React.Component {
     return (
       <>
         Pokemon: {selectedPokemon}
+        <br />
+        <Detail pokemonName={selectedPokemon} />
         <br />
         <Pokemon setPokemon={this.setPokemon} />
       </>
