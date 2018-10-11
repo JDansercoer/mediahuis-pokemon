@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 
 class ApiFetcher extends React.Component {
   state = {
-    result: [
-      {
-        name: 'hihih',
-        url: 'https://pokeapi.co/api/v2/generation/1/',
-      },
-    ],
+    result: null,
   };
 
   componentWillMount = () => {
