@@ -16,12 +16,12 @@ class Pokemon extends React.Component {
 
   render() {
     const { searchString } = this.state;
-    const { generation, setPokemon } = this.props;
+    const { setPokemon } = this.props;
 
     return (
       <>
         <input onChange={this.updateSearchString} value={searchString} />
-        <ApiFetcher url={`generation/${generation}/`} field="pokemon_species">
+        <ApiFetcher url="pokemon/" field="results">
           {species => {
             const filteredSpecies = _.filter(species, specie => {
               return _.startsWith(specie.name, searchString);
@@ -49,7 +49,6 @@ class Pokemon extends React.Component {
 }
 
 Pokemon.propTypes = {
-  generation: PropTypes.string.isRequired,
   setPokemon: PropTypes.func.isRequired,
 };
 
