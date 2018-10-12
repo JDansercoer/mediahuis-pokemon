@@ -8,9 +8,17 @@ class Detail extends React.Component {
     selectedMoves: [],
   };
 
+  isMoveAllowed = (selectedMoves, move) => {
+    if (move.version_group_details[0].move_learn_method.name) {
+      return true;
+    }
+
+    const selectedMethods = _.map(selectedMoves, 'version_group_details[0].move_learn_method.name');
+    return !_.includes(selectedMethods, move.version_group_details[0].move_learn_method.name);
+  };
+
   selectMove = move => {
     const { selectedMoves } = this.state;
-
     if (_.find(selectedMoves, ['move.name', move.move.name])) {
       this.setState(state => {
         return {
@@ -18,11 +26,13 @@ class Detail extends React.Component {
         };
       });
     } else {
-      this.setState(state => {
-        return {
-          selectedMoves: _.concat(state.selectedMoves, [move]),
-        };
-      });
+      if (_.size(selectedMoves) < 4 && this.isMoveAllowed(selectedMoves, move)) {
+        this.setState(state => {
+          return {
+            selectedMoves: _.concat(state.selectedMoves, [move]),
+          };
+        });
+      }
     }
   };
 
