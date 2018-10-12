@@ -11,8 +11,8 @@ class Detail extends React.Component {
     const { pokemonName } = this.props;
 
     return (
-      <ApiFetcher url={`pokemon/${pokemonName}/`} field="sprites">
-        {sprites => <img src={sprites.front_default} />}
+      <ApiFetcher url={`pokemon/${pokemonName}/`} fields={['sprites', 'moves']}>
+        {({ sprites, moves }) => <img src={sprites.front_default} />}
       </ApiFetcher>
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 class ApiFetcher extends React.Component {
   state = {
@@ -19,7 +20,7 @@ class ApiFetcher extends React.Component {
   };
 
   fetchData = () => {
-    const { url, field } = this.props;
+    const { url } = this.props;
 
     fetch(`https://pokeapi.co/api/v2/${url}`)
       .then(response => {
@@ -27,26 +28,26 @@ class ApiFetcher extends React.Component {
       })
       .then(data => {
         this.setState({
-          result: data[field],
+          result: data,
         });
       });
   };
 
   render() {
     const { result } = this.state;
-    const { children } = this.props;
+    const { children, fields } = this.props;
 
     if (!result) {
       return null;
     }
 
-    return children(result);
+    return children(_.pick(result, fields));
   }
 }
 
 ApiFetcher.propTypes = {
   url: PropTypes.string.isRequired,
-  field: PropTypes.string.isRequired,
+  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.func.isRequired,
 };
 

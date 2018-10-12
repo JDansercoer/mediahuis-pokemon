@@ -21,8 +21,8 @@ class Pokemon extends React.Component {
     return (
       <>
         <input onChange={this.updateSearchString} value={searchString} />
-        <ApiFetcher url="pokemon/" field="results">
-          {species => {
+        <ApiFetcher url="pokemon/" fields={['results']}>
+          {({ results: species }) => {
             const filteredSpecies = _.filter(species, specie => {
               return _.startsWith(specie.name, searchString);
             });

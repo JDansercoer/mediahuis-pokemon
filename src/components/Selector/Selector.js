@@ -20,7 +20,7 @@ class Selector extends React.Component {
       <>
         Pokemon: {selectedPokemon}
         <br />
-        <Detail pokemonName={selectedPokemon} />
+        {selectedPokemon && <Detail pokemonName={selectedPokemon} />}
         <br />
         <Pokemon setPokemon={this.setPokemon} />
       </>
