@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ApiFetcher from '../../utils/ApiFetcher';
+import Selection from '../Selection/Selection';
 
 class Detail extends React.Component {
   state = {
@@ -36,6 +37,17 @@ class Detail extends React.Component {
     }
   };
 
+  selectPokemon = image => {
+    const { selectedMoves } = this.state;
+    const { addPokemonToSquad, pokemonName } = this.props;
+
+    addPokemonToSquad({
+      name: pokemonName,
+      image,
+      selectedMoves,
+    });
+  };
+
   render() {
     const { pokemonName } = this.props;
 
@@ -46,7 +58,17 @@ class Detail extends React.Component {
             return move.version_group_details[0].move_learn_method.name;
           });
           return (
-            <>
+            <div>
+              Pokemon: {pokemonName}
+              <br />
+              <button
+                onClick={() => {
+                  this.selectPokemon(sprites.front_default);
+                }}
+              >
+                Save pokemon
+              </button>
+              <br />
               <img src={sprites.front_default} />
               {_.map(this.state.selectedMoves, 'move.name')}
               {_.map(stats, stat => (
@@ -69,7 +91,7 @@ class Detail extends React.Component {
                   </div>
                 );
               })}
-            </>
+            </div>
           );
         }}
       </ApiFetcher>
@@ -79,6 +101,7 @@ class Detail extends React.Component {
 
 Detail.propTypes = {
   pokemonName: PropTypes.string.isRequired,
+  addPokemonToSquad: PropTypes.func.isRequired,
 };
 
 export default Detail;

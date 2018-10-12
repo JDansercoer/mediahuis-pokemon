@@ -19,7 +19,7 @@ class Pokemon extends React.Component {
     const { setPokemon } = this.props;
 
     return (
-      <>
+      <div>
         <input onChange={this.updateSearchString} value={searchString} />
         <ApiFetcher url="pokemon/" fields={['results']}>
           {({ results: species }) => {
@@ -43,7 +43,7 @@ class Pokemon extends React.Component {
             ));
           }}
         </ApiFetcher>
-      </>
+      </div>
     );
   }
 }
