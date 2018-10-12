@@ -10,7 +10,7 @@ class Detail extends React.Component {
   };
 
   isMoveAllowed = (selectedMoves, move) => {
-    if (move.version_group_details[0].move_learn_method.name) {
+    if (move.version_group_details[0].move_learn_method.name === 'level-up') {
       return true;
     }
 
