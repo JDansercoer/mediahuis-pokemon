@@ -16,7 +16,8 @@ const Title = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  height: 200px;
+  height: 250px;
+  margin-bottom: 50px;
 `;
 
 const Pokemon = styled.div`
@@ -46,6 +47,16 @@ const PokemonName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+  margin-bottom: 4px;
+`;
+
+const PokemonMove = styled.div`
+  background-color: ${props => props.theme.mainWhite};
+  padding: 3px;
+  color: ${props => props.theme.mainBlack};
+  font-size: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
 `;
 
 const NoPokemon = styled.div`
@@ -80,6 +91,9 @@ const Selection = ({ selectedSquad }) => {
               <Pokemon key={pokemon.name} type={getPrimaryTypeName(pokemon.types)}>
                 <PokemonImage src={pokemon.image} />
                 <PokemonName>{pokemon.name}</PokemonName>
+                {_.map(pokemon.selectedMoves, move => (
+                  <PokemonMove>{move.move.name}</PokemonMove>
+                ))}
               </Pokemon>
             );
           }
