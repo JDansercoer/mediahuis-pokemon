@@ -4,6 +4,15 @@ import styled from 'styled-components';
 import _ from 'lodash';
 import ApiFetcher from '../../utils/ApiFetcher';
 
+const Title = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: ${props => props.theme.mainBlack};
+  margin-bottom: 3px;
+  text-align: center;
+`;
+
 const ResultsWrapper = styled.div`
   height: 200px;
   overflow-y: auto;
@@ -26,6 +35,7 @@ const Search = styled.input`
   box-sizing: border-box;
   padding: 5px;
   text-transform: uppercase;
+  margin-bottom: 5px;
 `;
 
 const Result = styled.div`
@@ -56,7 +66,12 @@ class Pokemon extends React.Component {
 
     return (
       <div>
-        <Search onChange={this.updateSearchString} value={searchString} />
+        <Title>Select a pokemon</Title>
+        <Search
+          onChange={this.updateSearchString}
+          value={searchString}
+          placeholder="Type to filter"
+        />
         <ApiFetcher url="pokemon/" fields={['results']}>
           {({ results: species }) => {
             const filteredSpecies = _.filter(species, specie => {

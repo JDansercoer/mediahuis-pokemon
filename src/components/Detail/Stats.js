@@ -4,11 +4,10 @@ import _ from 'lodash';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 50%;
   display: flex;
   flex-wrap: wrap;
   align-self: flex-start;
-  margin: 0 15px;
+  margin-bottom: 10px;
 `;
 
 const Stat = styled.div`

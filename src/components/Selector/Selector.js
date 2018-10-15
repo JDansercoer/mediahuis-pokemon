@@ -55,6 +55,9 @@ class Selector extends React.Component {
       <ThemeProvider theme={theme}>
         <Wrapper>
           <SelectionWrapper>
+            <ListWrapper>
+              <Pokemon setPokemon={this.setPokemon} />
+            </ListWrapper>
             <DetailWrapper>
               {selectedPokemon && (
                 <Detail
@@ -64,9 +67,6 @@ class Selector extends React.Component {
                 />
               )}
             </DetailWrapper>
-            <ListWrapper>
-              <Pokemon setPokemon={this.setPokemon} />
-            </ListWrapper>
           </SelectionWrapper>
           <Selection selectedSquad={selectedSquad} />
         </Wrapper>

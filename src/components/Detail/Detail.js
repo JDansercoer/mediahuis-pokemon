@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
 import ApiFetcher from '../../utils/ApiFetcher';
+import { capitalizeMoveName } from '../../utils/Functions';
 import Moves from './Moves';
 import Stats from './Stats';
 
@@ -34,6 +35,37 @@ const SaveButton = styled.div`
   text-transform: uppercase;
   padding: 7px 14px;
   cursor: pointer;
+  font-size: 13px;
+  text-align: center;
+`;
+
+const MiddleWrapper = styled.div`
+  width: 50%;
+  margin: 0 15px;
+`;
+
+const MiddleHeader = styled.h3`
+  text-transform: uppercase;
+  margin: 6px 0 3px;
+  color: ${props => props.theme.mainBlack};
+  text-align: center;
+  font-size: 10px;
+`;
+
+const SelectedMovesWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const SelectedMove = styled.div`
+  width: 49%;
+  padding: 5px;
+  border: 1px solid ${props => props.theme.mainColor};
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: ${props => props.theme.mainBlack};
+  box-sizing: border-box;
 `;
 
 class Detail extends React.Component {
@@ -79,6 +111,7 @@ class Detail extends React.Component {
   };
 
   render() {
+    const { selectedMoves } = this.state;
     const { pokemonName } = this.props;
 
     return (
@@ -97,7 +130,16 @@ class Detail extends React.Component {
                   Save pokemon
                 </SaveButton>
               </GeneralWrapper>
-              <Stats stats={stats} />
+              <MiddleWrapper>
+                <MiddleHeader>Stats</MiddleHeader>
+                <Stats stats={stats} />
+                <MiddleHeader>Selected Moves</MiddleHeader>
+                <SelectedMovesWrapper>
+                  {_.map(selectedMoves, selectedMove => (
+                    <SelectedMove>{capitalizeMoveName(selectedMove.move.name)}</SelectedMove>
+                  ))}
+                </SelectedMovesWrapper>
+              </MiddleWrapper>
               <Moves moves={moves} selectMove={this.selectMove} />
             </Wrapper>
           );

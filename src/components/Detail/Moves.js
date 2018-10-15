@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
+import { capitalizeMoveName} from '../../utils/Functions';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 30%;
 `;
 
 const GroupNames = styled.div``;
@@ -28,6 +30,7 @@ const MovesWrapper = styled.div`
 const Move = styled.div`
   color: ${props => props.theme.mainBlack};
   cursor: pointer;
+  font-size: 12px;
 `;
 
 const NoGroupWrapper = styled.div`
@@ -57,7 +60,7 @@ class Moves extends React.Component {
 
   render() {
     const { selectedGroup } = this.state;
-    const { moves } = this.props;
+    const { moves, selectMove } = this.props;
 
     const groupedMoves = _.groupBy(moves, move => {
       return move.version_group_details[0].move_learn_method.name;
@@ -83,7 +86,16 @@ class Moves extends React.Component {
         {selectedGroup ? (
           <MovesWrapper>
             {_.map(groupedMoves[selectedGroup], move => {
-              return <Move key={move.move.name}>{_.capitalize(_.lowerCase(move.move.name))}</Move>;
+              return (
+                <Move
+                  onClick={() => {
+                    selectMove(move);
+                  }}
+                  key={move.move.name}
+                >
+                  {capitalizeMoveName(move.move.name)}
+                </Move>
+              );
             })}
           </MovesWrapper>
         ) : (
@@ -98,6 +110,7 @@ class Moves extends React.Component {
 
 Moves.propTypes = {
   moves: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectMove: PropTypes.func.isRequired,
 };
 
 export default Moves;
