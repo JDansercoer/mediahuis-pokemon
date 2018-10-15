@@ -55,6 +55,15 @@ class Selector extends React.Component {
     });
   };
 
+  removePokemonFromSquad = index => {
+    const squadClone = _.cloneDeep(this.state.selectedSquad);
+    squadClone.splice(index, 1);
+
+    this.setState({
+      selectedSquad: squadClone,
+    });
+  };
+
   render() {
     const { selectedPokemon, selectedSquad } = this.state;
 
@@ -76,7 +85,7 @@ class Selector extends React.Component {
               )}
             </DetailWrapper>
           </SelectionWrapper>
-          <Selection selectedSquad={selectedSquad} />
+          <Selection selectedSquad={selectedSquad} removePokemon={this.removePokemonFromSquad} />
         </Wrapper>
       </ThemeProvider>
     );

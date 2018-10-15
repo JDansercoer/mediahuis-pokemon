@@ -29,6 +29,7 @@ const Pokemon = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: ${props => props.justify || 'flex-start'};
+  cursor: pointer;
 `;
 
 const PokemonImage = styled.img`
@@ -72,7 +73,7 @@ const getPrimaryTypeName = types => {
   return primaryType.type.name;
 };
 
-const Selection = ({ selectedSquad }) => {
+const Selection = ({ selectedSquad, removePokemon }) => {
   let paddedSelection;
 
   if (_.size(selectedSquad) < 6) {
@@ -88,7 +89,13 @@ const Selection = ({ selectedSquad }) => {
         {_.map(paddedSelection, (pokemon, index) => {
           if (pokemon) {
             return (
-              <Pokemon key={pokemon.name} type={getPrimaryTypeName(pokemon.types)}>
+              <Pokemon
+                onClick={() => {
+                  removePokemon(index);
+                }}
+                key={pokemon.name}
+                type={getPrimaryTypeName(pokemon.types)}
+              >
                 <PokemonImage src={pokemon.image} />
                 <PokemonName>{pokemon.name}</PokemonName>
                 {_.map(pokemon.selectedMoves, move => (
