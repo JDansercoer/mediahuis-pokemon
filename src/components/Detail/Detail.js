@@ -108,7 +108,7 @@ class Detail extends React.Component {
     }
   };
 
-  selectPokemon = image => {
+  selectPokemon = (image, types) => {
     const { selectedMoves } = this.state;
     const { addPokemonToSquad, pokemonName } = this.props;
 
@@ -116,6 +116,7 @@ class Detail extends React.Component {
       name: pokemonName,
       image,
       selectedMoves,
+      types,
     });
   };
 
@@ -124,8 +125,8 @@ class Detail extends React.Component {
     const { pokemonName } = this.props;
 
     return (
-      <ApiFetcher url={`pokemon/${pokemonName}/`} fields={['sprites', 'moves', 'stats']}>
-        {({ sprites, moves, stats }) => {
+      <ApiFetcher url={`pokemon/${pokemonName}/`} fields={['sprites', 'moves', 'stats', 'types']}>
+        {({ sprites, moves, stats, types }) => {
           return (
             <Wrapper>
               <GeneralWrapper>
@@ -133,7 +134,7 @@ class Detail extends React.Component {
                 <PokemonName>{pokemonName}</PokemonName>
                 <SaveButton
                   onClick={() => {
-                    this.selectPokemon(sprites.front_default);
+                    this.selectPokemon(sprites.front_default, types);
                   }}
                 >
                   Save pokemon
