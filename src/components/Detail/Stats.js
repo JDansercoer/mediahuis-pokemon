@@ -17,14 +17,14 @@ const Stat = styled.div`
 `;
 
 const StatName = styled.span`
-  color: #B97375;
+  color: ${props => props.theme.mainColor};
   font-size: 12px;
   text-transform: uppercase;
   margin-right: 5px;
 `;
 
 const StatValue = styled.span`
-  color: black;
+  color: ${props => props.theme.mainBlack};
   font-size: 30px;
 `;
 

@@ -21,7 +21,7 @@ const Results = styled.div`
 
 const Search = styled.input`
   outline: none;
-  border: 3px solid #B97375;
+  border: 3px solid ${props => props.theme.mainColor};
   width: 100%;
   box-sizing: border-box;
   padding: 5px;
@@ -29,8 +29,8 @@ const Search = styled.input`
 `;
 
 const Result = styled.div`
-  background-color: #B97375;
-  color: white;
+  background-color: ${props => props.theme.mainColor};
+  color: ${props => props.theme.mainWhite};
   padding: 7px 14px;
   text-transform: uppercase;
   font-size: 14px;

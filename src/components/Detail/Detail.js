@@ -21,7 +21,7 @@ const PokemonImage = styled.img`
 `;
 
 const PokemonName = styled.h2`
-  color: #B97375;
+  color: ${props => props.theme.mainColor};
   text-transform: uppercase;
   margin: 0;
   font-size: 18px;
@@ -29,8 +29,8 @@ const PokemonName = styled.h2`
 `;
 
 const SaveButton = styled.div`
-  background-color: #B97375;
-  color: white;
+  background-color: ${props => props.theme.mainColor};
+  color: ${props => props.theme.mainWhite};
   text-transform: uppercase;
   padding: 7px 14px;
   cursor: pointer;
@@ -98,7 +98,7 @@ class Detail extends React.Component {
                 </SaveButton>
               </GeneralWrapper>
               <Stats stats={stats} />
-              <Moves moves={moves} selectMove={this.selectMove}/>
+              <Moves moves={moves} selectMove={this.selectMove} />
             </Wrapper>
           );
         }}

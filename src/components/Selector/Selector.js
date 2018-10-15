@@ -1,9 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Pokemon from './Pokemon';
 import Detail from '../Detail';
 import Selection from '../Selection/Selection';
+
+const theme = {
+  mainColor: '#B97375',
+  mainBlack: '#66666B',
+  mainWhite: '#F1E4E8',
+};
 
 const Wrapper = styled.div`
   max-width: 980px;
@@ -46,23 +52,25 @@ class Selector extends React.Component {
     const { selectedPokemon, selectedSquad } = this.state;
 
     return (
-      <Wrapper>
-        <SelectionWrapper>
-          <DetailWrapper>
-            {selectedPokemon && (
-              <Detail
-                pokemonName={selectedPokemon}
-                addPokemonToSquad={this.addPokemonToSquad}
-                key={selectedPokemon}
-              />
-            )}
-          </DetailWrapper>
-          <ListWrapper>
-            <Pokemon setPokemon={this.setPokemon} />
-          </ListWrapper>
-        </SelectionWrapper>
-        <Selection selectedSquad={selectedSquad} />
-      </Wrapper>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <SelectionWrapper>
+            <DetailWrapper>
+              {selectedPokemon && (
+                <Detail
+                  pokemonName={selectedPokemon}
+                  addPokemonToSquad={this.addPokemonToSquad}
+                  key={selectedPokemon}
+                />
+              )}
+            </DetailWrapper>
+            <ListWrapper>
+              <Pokemon setPokemon={this.setPokemon} />
+            </ListWrapper>
+          </SelectionWrapper>
+          <Selection selectedSquad={selectedSquad} />
+        </Wrapper>
+      </ThemeProvider>
     );
   }
 }
