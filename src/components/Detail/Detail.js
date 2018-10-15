@@ -124,12 +124,16 @@ class Detail extends React.Component {
     const { selectedMoves } = this.state;
     const { addPokemonToSquad, pokemonName } = this.props;
 
-    addPokemonToSquad({
-      name: pokemonName,
-      image,
-      selectedMoves,
-      types,
-    });
+    if (_.size(selectedMoves) < 1) {
+      alert('Please select at least 1 move from the right panel.');
+    } else {
+      addPokemonToSquad({
+        name: pokemonName,
+        image,
+        selectedMoves,
+        types,
+      });
+    }
   };
 
   render() {
