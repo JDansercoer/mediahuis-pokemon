@@ -17,6 +17,12 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
+const HeaderImage = styled.img`
+  width: 200px;
+  margin: 0 auto 30px;
+  display: block;
+`;
+
 const SelectionWrapper = styled.div`
   display: flex;
 `;
@@ -55,6 +61,7 @@ class Selector extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
+          <HeaderImage src="https://vignette.wikia.nocookie.net/logopedia/images/2/2b/Pokemon_2D_logo.svg/revision/latest/scale-to-width-down/639?cb=20170115063554" />
           <SelectionWrapper>
             <ListWrapper>
               <Pokemon setPokemon={this.setPokemon} />
