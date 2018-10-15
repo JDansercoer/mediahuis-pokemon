@@ -28,6 +28,13 @@ const Results = styled.div`
   visibility: visible;
 `;
 
+const Loading = styled.div`
+  visibility: visible;
+  color: ${props => props.theme.mainLight};
+  font-size: 12px;
+  text-align: center;
+`;
+
 const Search = styled.input`
   outline: none;
   border: 3px solid ${props => props.theme.mainColor};
@@ -72,32 +79,36 @@ class Pokemon extends React.Component {
           value={searchString}
           placeholder="Type to filter"
         />
-        <ApiFetcher url="pokemon/" fields={['results']}>
-          {({ results: species }) => {
-            const filteredSpecies = _.filter(species, specie => {
-              return _.startsWith(specie.name, searchString);
-            });
-            return (
-              <ResultsWrapper>
-                <Results>
-                  {_.map(_.sortBy(filteredSpecies, ['name']), specie => (
-                    <Result
-                      key={specie.name}
-                      onClick={() => {
-                        setPokemon(specie.name);
-                      }}
-                      onKeyPress={() => {
-                        setPokemon(specie.name);
-                      }}
-                    >
-                      {specie.name}
-                    </Result>
-                  ))}
-                </Results>
-              </ResultsWrapper>
-            );
-          }}
-        </ApiFetcher>
+        <ResultsWrapper>
+          <ApiFetcher url="pokemon/" fields={['results']}>
+            {({ results: species }, hasResults) => {
+              const filteredSpecies = _.filter(species, specie => {
+                return _.startsWith(specie.name, searchString);
+              });
+              if (hasResults) {
+                return (
+                  <Results>
+                    {_.map(_.sortBy(filteredSpecies, ['name']), specie => (
+                      <Result
+                        key={specie.name}
+                        onClick={() => {
+                          setPokemon(specie.name);
+                        }}
+                        onKeyPress={() => {
+                          setPokemon(specie.name);
+                        }}
+                      >
+                        {specie.name}
+                      </Result>
+                    ))}
+                  </Results>
+                );
+              }
+
+              return <Loading>Loading Pokémon...</Loading>;
+            }}
+          </ApiFetcher>
+        </ResultsWrapper>
       </div>
     );
   }

@@ -77,6 +77,18 @@ const MoveName = styled.div`
   color: ${props => props.theme.mainBlack};
 `;
 
+const NoResultsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const NoResultsString = styled.div`
+  font-size: 14px;
+  color: ${props => props.theme.mainLight};
+`;
+
 class Detail extends React.Component {
   state = {
     selectedMoves: [],
@@ -126,35 +138,43 @@ class Detail extends React.Component {
 
     return (
       <ApiFetcher url={`pokemon/${pokemonName}/`} fields={['sprites', 'moves', 'stats', 'types']}>
-        {({ sprites, moves, stats, types }) => {
+        {({ sprites, moves, stats, types }, hasResults) => {
+          if (hasResults) {
+            return (
+              <Wrapper>
+                <GeneralWrapper>
+                  <PokemonImage src={sprites.front_default} />
+                  <PokemonName>{pokemonName}</PokemonName>
+                  <SaveButton
+                    onClick={() => {
+                      this.selectPokemon(sprites.front_default, types);
+                    }}
+                  >
+                    Save pokemon
+                  </SaveButton>
+                </GeneralWrapper>
+                <MiddleWrapper>
+                  <MiddleHeader>Stats</MiddleHeader>
+                  <Stats stats={stats} />
+                  <MiddleHeader>Selected Moves</MiddleHeader>
+                  <SelectedMovesWrapper>
+                    {_.map(selectedMoves, selectedMove => (
+                      <SelectedMove>
+                        <MoveMethod>{getMoveMethod(selectedMove)}</MoveMethod>
+                        <MoveName>{capitalizeMoveName(selectedMove.move.name)}</MoveName>
+                      </SelectedMove>
+                    ))}
+                  </SelectedMovesWrapper>
+                </MiddleWrapper>
+                <Moves moves={moves} selectMove={this.selectMove} />
+              </Wrapper>
+            );
+          }
+
           return (
-            <Wrapper>
-              <GeneralWrapper>
-                <PokemonImage src={sprites.front_default} />
-                <PokemonName>{pokemonName}</PokemonName>
-                <SaveButton
-                  onClick={() => {
-                    this.selectPokemon(sprites.front_default, types);
-                  }}
-                >
-                  Save pokemon
-                </SaveButton>
-              </GeneralWrapper>
-              <MiddleWrapper>
-                <MiddleHeader>Stats</MiddleHeader>
-                <Stats stats={stats} />
-                <MiddleHeader>Selected Moves</MiddleHeader>
-                <SelectedMovesWrapper>
-                  {_.map(selectedMoves, selectedMove => (
-                    <SelectedMove>
-                      <MoveMethod>{getMoveMethod(selectedMove)}</MoveMethod>
-                      <MoveName>{capitalizeMoveName(selectedMove.move.name)}</MoveName>
-                    </SelectedMove>
-                  ))}
-                </SelectedMovesWrapper>
-              </MiddleWrapper>
-              <Moves moves={moves} selectMove={this.selectMove} />
-            </Wrapper>
+            <NoResultsWrapper>
+              <NoResultsString>Loading</NoResultsString>
+            </NoResultsWrapper>
           );
         }}
       </ApiFetcher>

@@ -37,11 +37,7 @@ class ApiFetcher extends React.Component {
     const { result } = this.state;
     const { children, fields } = this.props;
 
-    if (!result) {
-      return null;
-    }
-
-    return children(_.pick(result, fields));
+    return children(_.pick(result, fields), !!result);
   }
 }
 
