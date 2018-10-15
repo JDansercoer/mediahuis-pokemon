@@ -48,15 +48,21 @@ class Selector extends React.Component {
   };
 
   addPokemonToSquad = pokemon => {
-    this.setState(state => {
-      return {
-        selectedSquad: _.concat(state.selectedSquad, [pokemon]),
-      };
-    });
+    const { selectedSquad } = this.state;
+
+    if (_.size(selectedSquad) < 6) {
+      this.setState(state => {
+        return {
+          selectedSquad: _.concat(state.selectedSquad, [pokemon]),
+        };
+      });
+    }
   };
 
   removePokemonFromSquad = index => {
-    const squadClone = _.cloneDeep(this.state.selectedSquad);
+    const { selectedSquad } = this.state;
+
+    const squadClone = _.cloneDeep(selectedSquad);
     squadClone.splice(index, 1);
 
     this.setState({
