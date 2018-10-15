@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const GroupNames = styled.div``;
@@ -17,6 +18,16 @@ const GroupName = styled.span`
   text-transform: uppercase;
   cursor: pointer;
   border-bottom: ${props => (props.selected ? 1 : 0)}px solid ${props => props.theme.mainColor};
+`;
+
+const MovesWrapper = styled.div`
+  max-height: 210px;
+  overflow: auto;
+`;
+
+const Move = styled.div`
+  color: ${props => props.theme.mainBlack};
+  cursor: pointer;
 `;
 
 const NoGroupWrapper = styled.div`
@@ -70,11 +81,11 @@ class Moves extends React.Component {
           })}
         </GroupNames>
         {selectedGroup ? (
-          <div>
+          <MovesWrapper>
             {_.map(groupedMoves[selectedGroup], move => {
-              return <div>{move.move.name}</div>;
+              return <Move key={move.move.name}>{_.capitalize(_.lowerCase(move.move.name))}</Move>;
             })}
-          </div>
+          </MovesWrapper>
         ) : (
           <NoGroupWrapper>
             <NoGroupMessage>Select a group first</NoGroupMessage>
@@ -86,7 +97,7 @@ class Moves extends React.Component {
 }
 
 Moves.propTypes = {
-  moves: PropTypes.array,
+  moves: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Moves;
