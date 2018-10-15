@@ -18,6 +18,8 @@ const NoSelection = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  padding-left: 20px;
+  box-sizing: border-box;
 `;
 
 const GeneralWrapper = styled.div`
