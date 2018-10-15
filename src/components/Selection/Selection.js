@@ -99,7 +99,7 @@ const Selection = ({ selectedSquad, removePokemon }) => {
                 <PokemonImage src={pokemon.image} />
                 <PokemonName>{pokemon.name}</PokemonName>
                 {_.map(pokemon.selectedMoves, move => (
-                  <PokemonMove>{move.move.name}</PokemonMove>
+                  <PokemonMove key={move.move.name}>{move.move.name}</PokemonMove>
                 ))}
               </Pokemon>
             );

@@ -163,7 +163,7 @@ class Detail extends React.Component {
                   <MiddleHeader>Selected Moves</MiddleHeader>
                   <SelectedMovesWrapper>
                     {_.map(selectedMoves, selectedMove => (
-                      <SelectedMove>
+                      <SelectedMove key={selectedMove.move.name}>
                         <MoveMethod>{getMoveMethod(selectedMove)}</MoveMethod>
                         <MoveName>{capitalizeMoveName(selectedMove.move.name)}</MoveName>
                       </SelectedMove>
