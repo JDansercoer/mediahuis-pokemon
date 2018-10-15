@@ -8,7 +8,7 @@ const Title = styled.div`
   font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.secondaryColor};
   margin-bottom: 6px;
   text-align: center;
   margin-top: 15px;
@@ -53,7 +53,7 @@ const PokemonName = styled.div`
 const PokemonMove = styled.div`
   background-color: ${props => props.theme.mainWhite};
   padding: 3px;
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.mainColor};
   font-size: 10px;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -62,7 +62,7 @@ const PokemonMove = styled.div`
 const NoPokemon = styled.div`
   font-size: 10px;
   text-transform: lowercase;
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.mainColor};
   text-align: center;
 `;
 

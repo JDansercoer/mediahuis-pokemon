@@ -17,11 +17,11 @@ const GroupNames = styled.div`
 
 const GroupName = styled.span`
   margin-right: 5px;
-  color: ${props => props.theme.mainColor};
+  color: ${props => props.theme.secondaryColor};
   font-size: 12px;
   text-transform: uppercase;
   cursor: pointer;
-  border-bottom: ${props => (props.selected ? 1 : 0)}px solid ${props => props.theme.mainColor};
+  border-bottom: ${props => (props.selected ? 1 : 0)}px solid ${props => props.theme.secondaryColor};
 `;
 
 const MovesWrapper = styled.div`
@@ -30,7 +30,7 @@ const MovesWrapper = styled.div`
 `;
 
 const Move = styled.div`
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.mainColor};
   cursor: pointer;
   font-size: 12px;
 `;

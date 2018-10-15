@@ -8,7 +8,7 @@ const Title = styled.div`
   font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.secondaryColor};
   margin-bottom: 3px;
   text-align: center;
 `;
@@ -47,7 +47,7 @@ const Search = styled.input`
 
 const Result = styled.div`
   background-color: ${props => props.theme.mainColor};
-  color: ${props => props.theme.mainWhite};
+  color: ${props => props.theme.secondaryColor};
   padding: 7px 14px;
   text-transform: uppercase;
   font-size: 14px;

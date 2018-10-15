@@ -47,7 +47,7 @@ const MiddleWrapper = styled.div`
 const MiddleHeader = styled.h3`
   text-transform: uppercase;
   margin: 6px 0 3px;
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.mainColor};
   text-align: center;
   font-size: 10px;
 `;
@@ -68,13 +68,13 @@ const SelectedMove = styled.div`
 `;
 
 const MoveMethod = styled.div`
-  color: ${props => props.theme.mainLight};
+  color: ${props => props.theme.secondaryColor};
   text-transform: uppercase;
   font-size: 10px;
 `;
 
 const MoveName = styled.div`
-  color: ${props => props.theme.mainBlack};
+  color: ${props => props.theme.mainColor};
 `;
 
 const NoResultsWrapper = styled.div`

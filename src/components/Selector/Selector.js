@@ -6,9 +6,9 @@ import Detail from '../Detail';
 import Selection from '../Selection/Selection';
 
 const theme = {
-  mainColor: '#B97375',
-  mainBlack: '#66666B',
-  mainWhite: '#F1E4E8',
+  mainColor: '#3A5D9F',
+  secondaryColor: '#FDCC07',
+  mainWhite: '#FFF',
   mainLight: '#C1C8CA',
 };
 
