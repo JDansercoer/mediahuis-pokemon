@@ -1,8 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import styled from 'styled-components';
 import ApiFetcher from '../../utils/ApiFetcher';
-import Selection from '../Selection/Selection';
+import Moves from './Moves';
+import Stats from './Stats';
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const GeneralWrapper = styled.div`
+  width: 20%;
+`;
+
+const PokemonImage = styled.img`
+  display: block;
+  width: 96px;
+  height: 96px;
+`;
+
+const PokemonName = styled.h2`
+  color: #B97375;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const SaveButton = styled.div`
+  background-color: #B97375;
+  color: white;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  cursor: pointer;
+`;
 
 class Detail extends React.Component {
   state = {
@@ -26,14 +58,12 @@ class Detail extends React.Component {
           selectedMoves: _.differenceBy(state.selectedMoves, [move], 'move.name'),
         };
       });
-    } else {
-      if (_.size(selectedMoves) < 4 && this.isMoveAllowed(selectedMoves, move)) {
-        this.setState(state => {
-          return {
-            selectedMoves: _.concat(state.selectedMoves, [move]),
-          };
-        });
-      }
+    } else if (_.size(selectedMoves) < 4 && this.isMoveAllowed(selectedMoves, move)) {
+      this.setState(state => {
+        return {
+          selectedMoves: _.concat(state.selectedMoves, [move]),
+        };
+      });
     }
   };
 
@@ -54,44 +84,22 @@ class Detail extends React.Component {
     return (
       <ApiFetcher url={`pokemon/${pokemonName}/`} fields={['sprites', 'moves', 'stats']}>
         {({ sprites, moves, stats }) => {
-          const groupedMoves = _.groupBy(moves, move => {
-            return move.version_group_details[0].move_learn_method.name;
-          });
           return (
-            <div>
-              Pokemon: {pokemonName}
-              <br />
-              <button
-                onClick={() => {
-                  this.selectPokemon(sprites.front_default);
-                }}
-              >
-                Save pokemon
-              </button>
-              <br />
-              <img src={sprites.front_default} />
-              {_.map(this.state.selectedMoves, 'move.name')}
-              {_.map(stats, stat => (
-                <div key={stat.stat.name}>
-                  <strong>{stat.stat.name}</strong>
-                  {stat.base_stat}
-                </div>
-              ))}
-              {_.map(groupedMoves, (moveGroup, groupName) => {
-                return (
-                  <div key={groupName}>
-                    <strong>{groupName}</strong>
-                    {_.map(_.sortBy(moveGroup, ['move.name']), move => {
-                      return (
-                        <div key={move.move.name} onClick={() => this.selectMove(move)}>
-                          {move.move.name}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
+            <Wrapper>
+              <GeneralWrapper>
+                <PokemonImage src={sprites.front_default} />
+                <PokemonName>{pokemonName}</PokemonName>
+                <SaveButton
+                  onClick={() => {
+                    this.selectPokemon(sprites.front_default);
+                  }}
+                >
+                  Save pokemon
+                </SaveButton>
+              </GeneralWrapper>
+              <Stats stats={stats} />
+              <Moves moves={moves} selectMove={this.selectMove}/>
+            </Wrapper>
           );
         }}
       </ApiFetcher>

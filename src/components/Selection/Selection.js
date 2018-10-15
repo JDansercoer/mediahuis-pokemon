@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 const Selection = ({ selectedSquad }) => (
-  <div>
+  <Wrapper>
     {_.map(selectedSquad, pokemon => (
       <div key={pokemon.name}>
         <img src={pokemon.image} />
         {pokemon.name}
       </div>
     ))}
-  </div>
+  </Wrapper>
 );
 
 Selection.propTypes = {

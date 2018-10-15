@@ -1,7 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import _ from 'lodash';
 import ApiFetcher from '../../utils/ApiFetcher';
+
+const ResultsWrapper = styled.div`
+  height: 200px;
+  overflow-y: auto;
+  visibility: hidden;
+
+  &:focus,
+  &:hover {
+    visibility: visible;
+  }
+`;
+
+const Results = styled.div`
+  visibility: visible;
+`;
+
+const Search = styled.input`
+  outline: none;
+  border: 3px solid #B97375;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  text-transform: uppercase;
+`;
+
+const Result = styled.div`
+  background-color: #B97375;
+  color: white;
+  padding: 7px 14px;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-radius: 10px;
+  margin: 4px 0;
+  cursor: pointer;
+`;
 
 class Pokemon extends React.Component {
   state = {
@@ -20,27 +56,31 @@ class Pokemon extends React.Component {
 
     return (
       <div>
-        <input onChange={this.updateSearchString} value={searchString} />
+        <Search onChange={this.updateSearchString} value={searchString} />
         <ApiFetcher url="pokemon/" fields={['results']}>
           {({ results: species }) => {
             const filteredSpecies = _.filter(species, specie => {
               return _.startsWith(specie.name, searchString);
             });
-            return _.map(_.sortBy(filteredSpecies, ['name']), specie => (
-              <div
-                key={specie.name}
-                onClick={() => {
-                  setPokemon(specie.name);
-                }}
-                role="button"
-                tabIndex={0}
-                onKeyPress={() => {
-                  setPokemon(specie.name);
-                }}
-              >
-                {specie.name}
-              </div>
-            ));
+            return (
+              <ResultsWrapper>
+                <Results>
+                  {_.map(_.sortBy(filteredSpecies, ['name']), specie => (
+                    <Result
+                      key={specie.name}
+                      onClick={() => {
+                        setPokemon(specie.name);
+                      }}
+                      onKeyPress={() => {
+                        setPokemon(specie.name);
+                      }}
+                    >
+                      {specie.name}
+                    </Result>
+                  ))}
+                </Results>
+              </ResultsWrapper>
+            );
           }}
         </ApiFetcher>
       </div>
