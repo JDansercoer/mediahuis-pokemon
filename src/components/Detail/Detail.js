@@ -7,6 +7,15 @@ import { capitalizeMoveName, getMoveMethod } from '../../utils/Functions';
 import Moves from './Moves';
 import Stats from './Stats';
 
+const NoSelection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: ${props => props.theme.mainLight};
+  font-size: 14px;
+`;
+
 const Wrapper = styled.div`
   display: flex;
 `;
@@ -139,6 +148,10 @@ class Detail extends React.Component {
   render() {
     const { selectedMoves } = this.state;
     const { pokemonName } = this.props;
+
+    if (!pokemonName) {
+      return <NoSelection>Select a Pokémon from the list on the right</NoSelection>;
+    }
 
     return (
       <ApiFetcher url={`pokemon/${pokemonName}/`} fields={['sprites', 'moves', 'stats', 'types']}>

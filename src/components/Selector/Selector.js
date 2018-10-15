@@ -82,13 +82,11 @@ class Selector extends React.Component {
               <Pokemon setPokemon={this.setPokemon} />
             </ListWrapper>
             <DetailWrapper>
-              {selectedPokemon && (
-                <Detail
-                  pokemonName={selectedPokemon}
-                  addPokemonToSquad={this.addPokemonToSquad}
-                  key={selectedPokemon}
-                />
-              )}
+              <Detail
+                pokemonName={selectedPokemon}
+                addPokemonToSquad={this.addPokemonToSquad}
+                key={selectedPokemon}
+              />
             </DetailWrapper>
           </SelectionWrapper>
           <Selection selectedSquad={selectedSquad} removePokemon={this.removePokemonFromSquad} />
