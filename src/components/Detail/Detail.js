@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
 import ApiFetcher from '../../utils/ApiFetcher';
-import { capitalizeMoveName } from '../../utils/Functions';
+import { capitalizeMoveName, getMoveMethod } from '../../utils/Functions';
 import Moves from './Moves';
 import Stats from './Stats';
 
@@ -63,9 +63,18 @@ const SelectedMove = styled.div`
   padding: 5px;
   border: 1px solid ${props => props.theme.mainColor};
   margin-bottom: 5px;
-  cursor: pointer;
-  color: ${props => props.theme.mainBlack};
   box-sizing: border-box;
+  user-select: none;
+`;
+
+const MoveMethod = styled.div`
+  color: ${props => props.theme.mainLight};
+  text-transform: uppercase;
+  font-size: 10px;
+`;
+
+const MoveName = styled.div`
+  color: ${props => props.theme.mainBlack};
 `;
 
 class Detail extends React.Component {
@@ -136,7 +145,10 @@ class Detail extends React.Component {
                 <MiddleHeader>Selected Moves</MiddleHeader>
                 <SelectedMovesWrapper>
                   {_.map(selectedMoves, selectedMove => (
-                    <SelectedMove>{capitalizeMoveName(selectedMove.move.name)}</SelectedMove>
+                    <SelectedMove>
+                      <MoveMethod>{getMoveMethod(selectedMove)}</MoveMethod>
+                      <MoveName>{capitalizeMoveName(selectedMove.move.name)}</MoveName>
+                    </SelectedMove>
                   ))}
                 </SelectedMovesWrapper>
               </MiddleWrapper>

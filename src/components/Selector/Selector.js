@@ -9,6 +9,7 @@ const theme = {
   mainColor: '#B97375',
   mainBlack: '#66666B',
   mainWhite: '#F1E4E8',
+  mainLight: '#C1C8CA',
 };
 
 const Wrapper = styled.div`

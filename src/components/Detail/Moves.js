@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
-import { capitalizeMoveName} from '../../utils/Functions';
+import { capitalizeMoveName } from '../../utils/Functions';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +11,9 @@ const Wrapper = styled.div`
   width: 30%;
 `;
 
-const GroupNames = styled.div``;
+const GroupNames = styled.div`
+  text-align: center;
+`;
 
 const GroupName = styled.span`
   margin-right: 5px;
@@ -41,7 +43,7 @@ const NoGroupWrapper = styled.div`
 `;
 
 const NoGroupMessage = styled.div`
-  color: #e2dcde;
+  color: ${props => props.theme.mainLight};
   text-transform: uppercase;
   font-size: 10px;
   text-align: center;
